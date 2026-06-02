@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistem Konversi Suhu</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="container">
+        <h1>Sistem Konversi Suhu</h1>
+
+        <form method="POST">
+            <label for="value">Nilai Suhu</label>
+            <input type="text" id="value" name="value" required>
+
+            <label for="from_unit">Satuan Asal</label>
+            <select id="from_unit" name="from_unit">
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+                <option value="Reamur">Reamur</option>
+            </select>
+
+            <label for="to_unit">Satuan Tujuan</label>
+            <select id="to_unit" name="to_unit">
+                <option value="Celsius">Celsius</option>
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Kelvin">Kelvin</option>
+                <option value="Reamur">Reamur</option>
+            </select>
+
+            <button type="submit">Konversi</button>
+        </form>
+
+        {% if result %}
+            <section class="result">
+                <h2>Hasil</h2>
+                <p>{{ result }}</p>
+            </section>
+        {% endif %}
+
+        {% if error %}
+            <section class="error">
+                <h2>Error</h2>
+                <p>{{ error }}</p>
+            </section>
+        {% endif %}
+    </main>
+</body>
+</html>
