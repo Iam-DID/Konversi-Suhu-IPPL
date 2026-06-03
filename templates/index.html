@@ -2,49 +2,91 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Sistem Konversi Suhu</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dasbor Konversi Suhu Pro</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 40px 20px; display: flex; justify-content: center; min-height: 100vh; }
+        .dashboard { width: 100%; max-width: 900px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media (max-width: 768px) { .dashboard { grid-template-columns: 1fr; } }
+        
+        .card { background-color: #1e293b; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); border: 1px solid #334155; }
+        h2 { margin-bottom: 20px; color: #38bdf8; font-size: 24px; font-weight: 600; }
+        
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: #94a3b8; font-size: 14px; }
+        input, select { width: 100%; padding: 12px; background-color: #0f172a; border: 1px solid #334155; border-radius: 8px; color: #fff; font-size: 16px; outline: none; }
+        input:focus, select:focus { border-color: #38bdf8; }
+        
+        button { width: 100%; padding: 14px; background-color: #0284c7; border: none; border-radius: 8px; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        button:hover { background-color: #0369a1; }
+        
+        .alert { padding: 15px; border-radius: 8px; margin-top: 20px; font-size: 15px; font-weight: 500; }
+        .alert-success { background-color: #065f46; color: #34d399; border: 1px solid #047857; }
+        .alert-danger { background-color: #991b1b; color: #f87171; border: 1px solid #b91c1c; }
+        
+        .history-list { list-style: none; }
+        .history-item { padding: 12px 15px; background-color: #0f172a; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #38bdf8; font-size: 15px; color: #cbd5e1; }
+        .empty-history { color: #64748b; font-style: italic; text-align: center; margin-top: 20px; }
+    </style>
 </head>
 <body>
-    <main class="container">
-        <h1>Sistem Konversi Suhu</h1>
 
-        <form method="POST">
-            <label for="value">Nilai Suhu</label>
-            <input type="text" id="value" name="value" required>
-
-            <label for="from_unit">Satuan Asal</label>
-            <select id="from_unit" name="from_unit">
-                <option value="Celsius">Celsius</option>
-                <option value="Fahrenheit">Fahrenheit</option>
-                <option value="Kelvin">Kelvin</option>
-                <option value="Reamur">Reamur</option>
-            </select>
-
-            <label for="to_unit">Satuan Tujuan</label>
-            <select id="to_unit" name="to_unit">
-                <option value="Celsius">Celsius</option>
-                <option value="Fahrenheit">Fahrenheit</option>
-                <option value="Kelvin">Kelvin</option>
-                <option value="Reamur">Reamur</option>
-            </select>
-
-            <button type="submit">Konversi</button>
+<div class="dashboard">
+    <div class="card">
+        <h2>Konverter Suhu</h2>
+        <form method="POST" action="/">
+            <div class="form-group">
+                <label for="value">Nilai Suhu</label>
+                <input type="text" id="value" name="value" placeholder="Masukkan angka..." required>
+            </div>
+            <div class="form-group">
+                <label for="from_unit">Dari Satuan</label>
+                <select id="from_unit" name="from_unit">
+                    <option value="Celsius">Celsius (°C)</option>
+                    <option value="Fahrenheit">Fahrenheit (°F)</option>
+                    <option value="Kelvin">Kelvin (K)</option>
+                    <option value="Reamur">Reamur (°R)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="to_unit">Ke Satuan</label>
+                <select id="to_unit" name="to_unit">
+                    <option value="Fahrenheit">Fahrenheit (°F)</option>
+                    <option value="Celsius">Celsius (°C)</option>
+                    <option value="Kelvin">Kelvin (K)</option>
+                    <option value="Reamur">Reamur (°R)</option>
+                </select>
+            </div>
+            <button type="submit">Konversi Sekarang</button>
         </form>
 
         {% if result %}
-            <section class="result">
-                <h2>Hasil</h2>
-                <p>{{ result }}</p>
-            </section>
+            <div class="alert alert-success">
+                <strong>Hasil:</strong> {{ result }}
+            </div>
         {% endif %}
 
         {% if error %}
-            <section class="error">
-                <h2>Error</h2>
-                <p>{{ error }}</p>
-            </section>
+            <div class="alert alert-danger">
+                <strong>Gagal:</strong> {{ error }}
+            </div>
         {% endif %}
-    </main>
+    </div>
+
+    <div class="card">
+        <h2>Riwayat Terakhir (Max 5)</h2>
+        {% if history %}
+            <ul class="history-list">
+                {% for entry in history|reverse %}
+                    <li class="history-item">{{ entry }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty-history">Belum ada riwayat konversi.</p>
+        {% endif %}
+    </div>
+</div>
+
 </body>
 </html>
