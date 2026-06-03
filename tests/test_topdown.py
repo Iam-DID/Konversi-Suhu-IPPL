@@ -5,13 +5,9 @@ from app import app
 class TestTopDownIntegration(unittest.TestCase):
 
     def setUp(self):
-        # Setup Flask Test Client
         self.client = app.test_client()
         self.client.testing = True
 
-    # ==========================================
-    # TC-01: Happy Path (Semua Modul Bawah di-Stub)
-    # ==========================================
     @patch("app.validate_input")
     @patch("app.convert_temperature")
     @patch("app.add_to_history")
@@ -30,13 +26,9 @@ class TestTopDownIntegration(unittest.TestCase):
         mock_history.assert_called_once_with(100.0, "Celsius", 212.0, "Fahrenheit")
         self.assertIn(b"100.0 Celsius = 212.0 Fahrenheit", response.data)
 
-    # ==========================================
-    # TC-02: Negative Case (Input Huruf)
-    # ==========================================
     @patch("app.convert_temperature")
     @patch("app.add_to_history")
     def test_tc02_non_numeric_input(self, mock_history, mock_convert):
-        # Modul validators.py berjalan ASLI dan akan melempar ValueError
         response = self.client.post("/", data={
             "value": "abc",
             "from_unit": "Celsius",
@@ -44,13 +36,9 @@ class TestTopDownIntegration(unittest.TestCase):
         })
         
         self.assertIn(b"Nilai suhu harus berupa angka", response.data)
-        # Pastikan stub konversi dan histori tidak pernah dipanggil karena gagal di validasi
         mock_convert.assert_not_called()
         mock_history.assert_not_called()
 
-    # ==========================================
-    # TC-03: Boundary Case (Kelvin Negatif)
-    # ==========================================
     @patch("app.convert_temperature")
     @patch("app.add_to_history")
     def test_tc03_negative_kelvin(self, mock_history, mock_convert):
@@ -63,14 +51,9 @@ class TestTopDownIntegration(unittest.TestCase):
         self.assertIn(b"Kelvin tidak boleh bernilai negatif", response.data)
         mock_convert.assert_not_called()
 
-    # ==========================================
-    # TC-04: Happy Path (Render Halaman Histori)
-    # ==========================================
     @patch("app.validate_input")
     @patch("app.convert_temperature")
     def test_tc04_history_page_load(self, mock_convert, mock_validate):
-        # Menguji app.py berintegrasi dengan history.py (ASLI) melalui HTTP GET
-        # Kita pancing dengan memasukkan 1 data histori asli secara manual terlebih dahulu
         from history import add_to_history, clear_history
         clear_history()
         add_to_history(50.0, "Celsius", 122.0, "Fahrenheit")
@@ -80,13 +63,9 @@ class TestTopDownIntegration(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"50.0 Celsius = 122.0 Fahrenheit", response.data)
         
-        # Karena ini HTTP GET (buka halaman), validasi dan konversi tidak boleh dipanggil
         mock_validate.assert_not_called()
         mock_convert.assert_not_called()
 
-    # ==========================================
-    # TC-05: Negative Case (Satuan Ilegal)
-    # ==========================================
     @patch("app.convert_temperature")
     @patch("app.add_to_history")
     def test_tc05_invalid_unit(self, mock_history, mock_convert):
