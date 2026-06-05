@@ -31,7 +31,6 @@ body {
     overflow-x: hidden;
     position: relative;
 
-    /* Geometric gradient background */
     background-color: var(--lavender);
     background-image:
         radial-gradient(at 0% 0%, rgba(228, 0, 75, 0.08) 0%, transparent 50%),
@@ -40,7 +39,6 @@ body {
         radial-gradient(at 80% 60%, rgba(238, 240, 255, 0.8) 0%, transparent 40%);
 }
 
-/* Dot pattern overlay */
 body::after {
     content: '';
     position: fixed;
@@ -51,7 +49,6 @@ body::after {
     z-index: 0;
 }
 
-/* ===== MAIN CONTAINER ===== */
 .container {
     position: relative;
     z-index: 1;
@@ -60,7 +57,6 @@ body::after {
     padding: 32px 20px;
 }
 
-/* ===== BRAND HEADER ===== */
 .brand {
     text-align: center;
     margin-bottom: 28px;
@@ -122,7 +118,6 @@ body::after {
     font-weight: 500;
 }
 
-/* ===== CONVERTER CARD ===== */
 .converter {
     background: var(--white);
     border-radius: 20px;
@@ -133,7 +128,6 @@ body::after {
     animation: slideUp 0.45s ease both;
 }
 
-/* ===== HISTORY TOGGLE BUTTON ===== */
 .history-toggle {
     position: absolute;
     top: 20px;
@@ -178,7 +172,6 @@ body::after {
     border: 2px solid var(--white);
 }
 
-/* ===== SECTION LABEL ===== */
 .section-label {
     display: flex;
     align-items: center;
@@ -201,7 +194,6 @@ body::after {
     color: var(--ink-light);
 }
 
-/* ===== TEMPERATURE DISPLAY INPUT ===== */
 .temp-display {
     background: var(--snow);
     border: 2px solid var(--border);
@@ -247,7 +239,6 @@ body::after {
     font-size: 28px;
 }
 
-/* ===== UNIT SELECTOR ROW ===== */
 .unit-row {
     display: flex;
     align-items: stretch;
@@ -312,7 +303,6 @@ body::after {
     color: var(--ink);
 }
 
-/* Swap button in the middle */
 .unit-swap {
     display: flex;
     align-items: center;
@@ -365,7 +355,6 @@ body::after {
     fill: var(--white);
 }
 
-/* ===== CONVERT BUTTON ===== */
 .btn-convert {
     width: fit-content;
     margin: 0 auto;
@@ -403,7 +392,6 @@ body::after {
     box-shadow: 0 2px 8px rgba(228, 0, 75, 0.2);
 }
 
-/* ===== RESULT BOX ===== */
 .result-box {
     margin-top: 20px;
     padding: 16px;
@@ -484,7 +472,6 @@ body::after {
     word-break: break-word;
 }
 
-/* ===== HISTORY PANEL (OVERLAY) ===== */
 .history-overlay {
     position: fixed;
     inset: 0;
@@ -599,7 +586,6 @@ body::after {
     padding: 16px;
 }
 
-/* ===== HISTORY ITEMS ===== */
 .h-list {
     list-style: none;
     display: flex;
@@ -664,7 +650,6 @@ body::after {
     color: var(--ink);
 }
 
-/* Empty state */
 .h-empty {
     text-align: center;
     padding: 60px 24px;
@@ -700,7 +685,6 @@ body::after {
     font-weight: 500;
 }
 
-/* ===== ANIMATIONS ===== */
 @keyframes fadeDown {
     from { opacity: 0; transform: translateY(-12px); }
     to { opacity: 1; transform: translateY(0); }
@@ -711,12 +695,10 @@ body::after {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== SCROLLBAR ===== */
 .panel-body::-webkit-scrollbar { width: 4px; }
 .panel-body::-webkit-scrollbar-track { background: transparent; }
 .panel-body::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-/* ===== RESPONSIVE ===== */
 @media (max-width: 480px) {
     .container { padding: 24px 16px; }
     .converter { padding: 22px; }

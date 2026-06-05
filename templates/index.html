@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Konversi Suhu — Temperature Converter</title>
-    <meta name="description" content="Konversi suhu antar satuan Celsius, Fahrenheit, Kelvin, dan Reamur secara cepat dan akurat.">
+    <title>Konversi Suhu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
@@ -13,7 +12,6 @@
 <body>
 
 <div class="container">
-    <!-- Brand -->
     <div class="brand">
         <div class="brand-mark">
             <div class="brand-dot">
@@ -41,13 +39,11 @@
         </div>
 
         <form method="POST" action="/" id="converter-form">
-            <!-- Big temperature input display -->
             <div class="temp-display">
                 <label for="value">Masukkan Nilai Suhu</label>
                 <input type="text" id="value" name="value" placeholder="0" required autocomplete="off">
             </div>
 
-            <!-- Unit selector row: FROM ↔ TO -->
             <div class="unit-row">
                 <div class="unit-col from-col">
                     <label for="from_unit">Dari</label>
@@ -171,7 +167,6 @@
         }
     }
 
-    // Close on Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             const panel = document.getElementById('history-panel');
