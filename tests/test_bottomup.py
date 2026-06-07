@@ -15,11 +15,11 @@ class TestBottomUpIntegration(unittest.TestCase):
         self.assertEqual(convert_temperature(0, "Celsius", "Kelvin"), 273.15)
 
     def test_tc07_history_fifo_limit(self):
-        for i in range(6):
+        for i in range(11):
             add_to_history(i, "Celsius", i * 2, "Fahrenheit")
         
         current_history = get_history()
-        self.assertEqual(len(current_history), 5)
+        self.assertEqual(len(current_history), 10)
         self.assertNotIn("0 Celsius = 0 Fahrenheit", current_history)
 
     def test_tc08_validator_to_converter(self):
